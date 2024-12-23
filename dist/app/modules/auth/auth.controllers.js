@@ -16,17 +16,26 @@ exports.AuthControllers = void 0;
 const http_status_1 = __importDefault(require("http-status"));
 const handleAsyncErrors_1 = __importDefault(require("../../utils/handleAsyncErrors"));
 const respond_1 = __importDefault(require("../../utils/respond"));
+const auth_services_1 = require("./auth.services");
 // Controller for login
 const login = (0, handleAsyncErrors_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield auth_services_1.AuthServices.login(req.body);
     // Respond final result to client
     (0, respond_1.default)(res, {
         message: "Login successfully.",
         status: http_status_1.default.OK,
-        data: { token: "" },
+        data: result,
     });
 }));
 // Register for register
-const register = (0, handleAsyncErrors_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () { }));
+const register = (0, handleAsyncErrors_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield auth_services_1.AuthServices.register(req.body, req.file);
+    (0, respond_1.default)(res, {
+        message: "Registered successfully.",
+        status: http_status_1.default.OK,
+        data: result,
+    });
+}));
 exports.AuthControllers = {
     login,
     register,
