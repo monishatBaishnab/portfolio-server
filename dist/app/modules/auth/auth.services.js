@@ -8,19 +8,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const app_1 = __importDefault(require("./app"));
-const mongoose_1 = __importDefault(require("mongoose"));
-const config_1 = require("./app/config/config");
-let server;
-const bootstrap = () => {
-    server = app_1.default.listen(3000, () => __awaiter(void 0, void 0, void 0, function* () {
-        yield mongoose_1.default.connect(config_1.config.db_uri);
-        console.log("Database connected successfully.");
-        console.log("Server running on port: 3000");
-    }));
+exports.AuthServices = void 0;
+// Service for login
+const login = (payload) => __awaiter(void 0, void 0, void 0, function* () { });
+// Service for register
+const register = (payload) => __awaiter(void 0, void 0, void 0, function* () { });
+exports.AuthServices = {
+    login,
+    register,
 };
-bootstrap();

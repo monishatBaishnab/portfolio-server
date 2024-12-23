@@ -12,15 +12,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const app_1 = __importDefault(require("./app"));
-const mongoose_1 = __importDefault(require("mongoose"));
-const config_1 = require("./app/config/config");
-let server;
-const bootstrap = () => {
-    server = app_1.default.listen(3000, () => __awaiter(void 0, void 0, void 0, function* () {
-        yield mongoose_1.default.connect(config_1.config.db_uri);
-        console.log("Database connected successfully.");
-        console.log("Server running on port: 3000");
-    }));
+exports.AuthControllers = void 0;
+const http_status_1 = __importDefault(require("http-status"));
+const handleAsyncErrors_1 = __importDefault(require("../../utils/handleAsyncErrors"));
+const respond_1 = __importDefault(require("../../utils/respond"));
+// Controller for login
+const login = (0, handleAsyncErrors_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    // Respond final result to client
+    (0, respond_1.default)(res, {
+        message: "Login successfully.",
+        status: http_status_1.default.OK,
+        data: { token: "" },
+    });
+}));
+// Register for register
+const register = (0, handleAsyncErrors_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () { }));
+exports.AuthControllers = {
+    login,
+    register,
 };
-bootstrap();

@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
+const routes_1 = require("./app/routes/routes");
 // Create an instance of the Express Application
 const app = (0, express_1.default)();
 // Middlewares
@@ -23,4 +24,6 @@ app.get("/", (req, res) => {
         message: "Server running smoothly.",
     });
 });
+// Define all routes for the application
+app.use("/api/v1", routes_1.routes);
 exports.default = app;
