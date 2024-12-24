@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { AuthRoutes } from "../modules/auth/auth.routes";
 import { SkillRoutes } from "../modules/skill/skill.routes";
+import { ProjectRoutes } from "../modules/project/project.routes";
 
 // Define all available rotes and there corresponding route handler
 const config = [
@@ -11,6 +12,10 @@ const config = [
   {
     route: "/skills",
     handler: SkillRoutes,
+  },
+  {
+    route: "/projects",
+    handler: ProjectRoutes,
   },
 ];
 

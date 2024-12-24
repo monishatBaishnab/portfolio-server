@@ -3,12 +3,15 @@ import { TUser } from "./auth.types";
 import bcrypt from "bcrypt";
 import { config } from "../../config/config";
 
-const UserSchema = new Schema<TUser>({
-  name: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  profile: { type: String, required: false, default: null },
-});
+const UserSchema = new Schema<TUser>(
+  {
+    name: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    profile: { type: String, required: false, default: null },
+  },
+  { timestamps: true }
+);
 
 UserSchema.pre("save", async function (next) {
   const userData = this;
