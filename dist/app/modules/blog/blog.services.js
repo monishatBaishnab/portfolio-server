@@ -12,61 +12,60 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProjectServices = void 0;
+exports.BlogServices = void 0;
 const http_status_1 = __importDefault(require("http-status"));
 const HttpError_1 = __importDefault(require("../../errors/HttpError"));
 const upload_1 = require("../../utils/upload");
-const project_models_1 = require("./project.models");
 const QueryBuilder_1 = __importDefault(require("../../builders/QueryBuilder"));
-// Service for fetch all projects from db
+const blog_models_1 = require("./blog.models");
+// Service for fetch all blogs from db
 const fetchAllFromDb = (query) => __awaiter(void 0, void 0, void 0, function* () {
-    const projectQuery = new QueryBuilder_1.default(project_models_1.Project.find().populate("skills", "_id name"), query);
-    const projects = yield projectQuery.paginate().sort().modelQuery;
-    return projects;
+    const blogQuery = new QueryBuilder_1.default(blog_models_1.Blog.find().populate("skills", "_id name"), query);
+    const blogs = yield blogQuery.paginate().sort().modelQuery;
+    return blogs;
 });
-// Service for fetch all projects from db
+// Service for fetch all blog from db
 const fetchSingleFromDb = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const projects = yield project_models_1.Project.findOne({ _id: id }).populate("skills", "_id, name");
-    return projects;
+    const blog = yield blog_models_1.Blog.findOne({ _id: id }).populate("skills", "_id, name");
+    return blog;
 });
-// Service for fetch all project from db
+// Service for fetch all blog from db
 const createOneIntoDb = (payload, file) => __awaiter(void 0, void 0, void 0, function* () {
     if (!file) {
-        throw new HttpError_1.default(http_status_1.default.BAD_REQUEST, "Please send project image.");
+        throw new HttpError_1.default(http_status_1.default.BAD_REQUEST, "Please send blog image.");
     }
-    const projectData = Object.assign({}, payload);
+    const blogData = Object.assign({}, payload);
     const uploadedImage = yield (0, upload_1.cloudinaryUploader)(file);
     if (uploadedImage === null || uploadedImage === void 0 ? void 0 : uploadedImage.secure_url) {
-        projectData.image = uploadedImage.secure_url;
+        blogData.image = uploadedImage.secure_url;
     }
-    console.log(uploadedImage);
-    const createdProject = yield project_models_1.Project.create(projectData);
-    return createdProject;
+    const createdBlog = yield blog_models_1.Blog.create(blogData);
+    return createdBlog;
 });
-// Service for fetch all project from db
+// Service for fetch all blog from db
 const updateOneFromDb = (id, payload, file) => __awaiter(void 0, void 0, void 0, function* () {
-    const projectInfo = yield project_models_1.Project.findOne({ _id: id });
-    if (!(projectInfo === null || projectInfo === void 0 ? void 0 : projectInfo.title)) {
-        throw new HttpError_1.default(http_status_1.default.BAD_REQUEST, "Project not found");
+    const blogInfo = yield blog_models_1.Blog.findOne({ _id: id });
+    if (!(blogInfo === null || blogInfo === void 0 ? void 0 : blogInfo.title)) {
+        throw new HttpError_1.default(http_status_1.default.BAD_REQUEST, "Blog not found");
     }
-    const projectData = Object.assign({}, payload);
+    const blogData = Object.assign({}, payload);
     const uploadedImage = yield (0, upload_1.cloudinaryUploader)(file);
     if (uploadedImage === null || uploadedImage === void 0 ? void 0 : uploadedImage.secure_url) {
-        projectData.image = uploadedImage.secure_url;
+        blogData.image = uploadedImage.secure_url;
     }
-    const updatedProject = yield project_models_1.Project.findOneAndUpdate({ _id: id }, projectData, { new: true });
-    return updatedProject;
+    const updatedBlog = yield blog_models_1.Blog.findOneAndUpdate({ _id: id }, blogData, { new: true });
+    return updatedBlog;
 });
-// Service for fetch all project from db
+// Service for fetch all Blog from db
 const deleteOneFromDb = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const projectInfo = yield project_models_1.Project.findOne({ _id: id });
-    if (!(projectInfo === null || projectInfo === void 0 ? void 0 : projectInfo.title)) {
-        throw new HttpError_1.default(http_status_1.default.BAD_REQUEST, "Project not found");
+    const blogInfo = yield blog_models_1.Blog.findOne({ _id: id });
+    if (!(blogInfo === null || blogInfo === void 0 ? void 0 : blogInfo.title)) {
+        throw new HttpError_1.default(http_status_1.default.BAD_REQUEST, "Blog not found");
     }
-    yield project_models_1.Project.deleteOne({ _id: id });
+    yield blog_models_1.Blog.deleteOne({ _id: id });
     return {};
 });
-exports.ProjectServices = {
+exports.BlogServices = {
     fetchAllFromDb,
     fetchSingleFromDb,
     createOneIntoDb,

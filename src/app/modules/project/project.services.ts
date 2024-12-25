@@ -11,7 +11,7 @@ const fetchAllFromDb = async (query: Record<string, unknown>) => {
 
   const projectQuery = new QueryBuilder(Project.find().populate("skills", "_id name"), query);
 
-  const projects = await projectQuery.paginate().modelQuery;
+  const projects = await projectQuery.paginate().sort().modelQuery;
   return projects;
 };
 

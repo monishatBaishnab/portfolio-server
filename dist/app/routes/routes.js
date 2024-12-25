@@ -6,6 +6,7 @@ const auth_routes_1 = require("../modules/auth/auth.routes");
 const skill_routes_1 = require("../modules/skill/skill.routes");
 const project_routes_1 = require("../modules/project/project.routes");
 const experience_routes_1 = require("../modules/experience/experience.routes");
+const blog_routes_1 = require("../modules/blog/blog.routes");
 // Define all available rotes and there corresponding route handler
 const config = [
     {
@@ -23,6 +24,10 @@ const config = [
     {
         route: "/experiences",
         handler: experience_routes_1.ExperienceRoutes,
+    },
+    {
+        route: "/blogs",
+        handler: blog_routes_1.BlogRoutes,
     },
 ];
 // Create a new express router instance

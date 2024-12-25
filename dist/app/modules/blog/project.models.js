@@ -23,15 +23,20 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Experience = void 0;
+exports.Project = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
-const experienceSchema = new mongoose_1.Schema({
-    company: { type: String, required: true },
-    designation: { type: String, required: true },
-    startDate: { type: String, required: true },
-    endDate: { type: String, default: null },
-    description: { type: String, default: null },
-    location: { type: String, default: null },
-    technologies: [{ type: mongoose_1.default.Schema.Types.ObjectId, ref: "Skill", default: [] }],
-}, { timestamps: true });
-exports.Experience = mongoose_1.default.model("Experience", experienceSchema);
+const projectSchema = new mongoose_1.Schema({
+    title: { type: String, required: true },
+    description: { type: String, required: true },
+    overview: { type: String, default: null },
+    image: { type: String, required: true },
+    skills: [{ type: mongoose_1.default.Schema.Types.ObjectId, ref: "Skill", required: true }],
+    links: {
+        client: { type: String, default: null },
+        server: { type: String, default: null },
+        live: { type: String, default: null },
+    },
+}, {
+    timestamps: true,
+});
+exports.Project = mongoose_1.default.model("Project", projectSchema);

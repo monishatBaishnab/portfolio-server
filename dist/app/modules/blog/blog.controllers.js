@@ -12,49 +12,60 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ExperienceControllers = void 0;
+exports.BlogControllers = void 0;
 const http_status_1 = __importDefault(require("http-status"));
 const handleAsyncErrors_1 = __importDefault(require("../../utils/handleAsyncErrors"));
 const respond_1 = __importDefault(require("../../utils/respond"));
-const experience_services_1 = require("./experience.services");
-// Controller for fetch all Experiences
+const blog_services_1 = require("./blog.services");
+// Controller for fetch all Blogs
 const fetchAll = (0, handleAsyncErrors_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // Respond final result to client
-    const result = yield experience_services_1.ExperienceServices.fetchAllFromDb(req.query);
+    const result = yield blog_services_1.BlogServices.fetchAllFromDb(req.query);
     (0, respond_1.default)(res, {
-        message: "Experiences fetched successfully.",
+        message: "Blogs fetched successfully.",
         status: http_status_1.default.OK,
         data: result,
     });
 }));
-// Controller for create new Experience
+// Controller for fetch all Blogs
+const fetchSingle = (0, handleAsyncErrors_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    // Respond final result to client
+    const result = yield blog_services_1.BlogServices.fetchSingleFromDb(req.params.id);
+    (0, respond_1.default)(res, {
+        message: "Blog fetched successfully.",
+        status: http_status_1.default.OK,
+        data: result,
+    });
+}));
+// Controller for create new Blog
 const createOne = (0, handleAsyncErrors_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield experience_services_1.ExperienceServices.createOneIntoDb(req.body);
+    const result = yield blog_services_1.BlogServices.createOneIntoDb(req.body, req.file);
     (0, respond_1.default)(res, {
-        message: "Experience created successfully.",
+        message: "Blog created successfully.",
         status: http_status_1.default.CREATED,
         data: result,
     });
 }));
-// Controller for update previous Experience
+// Controller for update previous Blog
 const updateOne = (0, handleAsyncErrors_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield experience_services_1.ExperienceServices.updateOneFromDb(req.params.id, req.body);
+    const result = yield blog_services_1.BlogServices.updateOneFromDb(req.params.id, req.body, req.file);
     (0, respond_1.default)(res, {
-        message: "Experience updated successfully.",
+        message: "Blog updated successfully.",
         status: http_status_1.default.OK,
         data: result,
     });
 }));
-// Controller for delete previous Experience
+// Controller for delete previous Blog
 const deleteOne = (0, handleAsyncErrors_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    yield experience_services_1.ExperienceServices.deleteOneFromDb(req.params.id);
+    yield blog_services_1.BlogServices.deleteOneFromDb(req.params.id);
     (0, respond_1.default)(res, {
-        message: "Experience deleted successfully.",
+        message: "Blog deleted successfully.",
         status: http_status_1.default.CREATED,
     });
 }));
-exports.ExperienceControllers = {
+exports.BlogControllers = {
     fetchAll,
+    fetchSingle,
     createOne,
     updateOne,
     deleteOne,

@@ -16,17 +16,17 @@ exports.ProjectServices = void 0;
 const http_status_1 = __importDefault(require("http-status"));
 const HttpError_1 = __importDefault(require("../../errors/HttpError"));
 const upload_1 = require("../../utils/upload");
-const project_models_1 = require("./project.models");
+const blog_models_1 = require("./blog.models");
 const QueryBuilder_1 = __importDefault(require("../../builders/QueryBuilder"));
 // Service for fetch all projects from db
 const fetchAllFromDb = (query) => __awaiter(void 0, void 0, void 0, function* () {
-    const projectQuery = new QueryBuilder_1.default(project_models_1.Project.find().populate("skills", "_id name"), query);
+    const projectQuery = new QueryBuilder_1.default(blog_models_1.Project.find().populate("skills", "_id name"), query);
     const projects = yield projectQuery.paginate().sort().modelQuery;
     return projects;
 });
 // Service for fetch all projects from db
 const fetchSingleFromDb = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const projects = yield project_models_1.Project.findOne({ _id: id }).populate("skills", "_id, name");
+    const projects = yield blog_models_1.Project.findOne({ _id: id }).populate("skills", "_id, name");
     return projects;
 });
 // Service for fetch all project from db
@@ -40,12 +40,12 @@ const createOneIntoDb = (payload, file) => __awaiter(void 0, void 0, void 0, fun
         projectData.image = uploadedImage.secure_url;
     }
     console.log(uploadedImage);
-    const createdProject = yield project_models_1.Project.create(projectData);
+    const createdProject = yield blog_models_1.Project.create(projectData);
     return createdProject;
 });
 // Service for fetch all project from db
 const updateOneFromDb = (id, payload, file) => __awaiter(void 0, void 0, void 0, function* () {
-    const projectInfo = yield project_models_1.Project.findOne({ _id: id });
+    const projectInfo = yield blog_models_1.Project.findOne({ _id: id });
     if (!(projectInfo === null || projectInfo === void 0 ? void 0 : projectInfo.title)) {
         throw new HttpError_1.default(http_status_1.default.BAD_REQUEST, "Project not found");
     }
@@ -54,16 +54,16 @@ const updateOneFromDb = (id, payload, file) => __awaiter(void 0, void 0, void 0,
     if (uploadedImage === null || uploadedImage === void 0 ? void 0 : uploadedImage.secure_url) {
         projectData.image = uploadedImage.secure_url;
     }
-    const updatedProject = yield project_models_1.Project.findOneAndUpdate({ _id: id }, projectData, { new: true });
+    const updatedProject = yield blog_models_1.Project.findOneAndUpdate({ _id: id }, projectData, { new: true });
     return updatedProject;
 });
 // Service for fetch all project from db
 const deleteOneFromDb = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const projectInfo = yield project_models_1.Project.findOne({ _id: id });
+    const projectInfo = yield blog_models_1.Project.findOne({ _id: id });
     if (!(projectInfo === null || projectInfo === void 0 ? void 0 : projectInfo.title)) {
         throw new HttpError_1.default(http_status_1.default.BAD_REQUEST, "Project not found");
     }
-    yield project_models_1.Project.deleteOne({ _id: id });
+    yield blog_models_1.Project.deleteOne({ _id: id });
     return {};
 });
 exports.ProjectServices = {
