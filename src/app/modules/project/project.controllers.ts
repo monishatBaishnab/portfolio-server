@@ -15,9 +15,22 @@ const fetchAll = handleAsyncErrors(async (req, res) => {
   });
 });
 
+// Controller for fetch all Projects
+const fetchSingle = handleAsyncErrors(async (req, res) => {
+  // Respond final result to client
+  const result = await ProjectServices.fetchSingleFromDb(req.params.id);
+
+  respond(res, {
+    message: "Project fetched successfully.",
+    status: httpStatus.OK,
+    data: result,
+  });
+});
+
 // Controller for create new Project
 const createOne = handleAsyncErrors(async (req, res) => {
   const result = await ProjectServices.createOneIntoDb(req.body, req.file);
+
   respond(res, {
     message: "Project created successfully.",
     status: httpStatus.CREATED,
@@ -47,6 +60,7 @@ const deleteOne = handleAsyncErrors(async (req, res) => {
 
 export const ProjectControllers = {
   fetchAll,
+  fetchSingle,
   createOne,
   updateOne,
   deleteOne,

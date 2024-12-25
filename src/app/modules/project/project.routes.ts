@@ -12,6 +12,8 @@ const router = Router();
 // Route for fetch all projects
 router.get("/", ProjectControllers.fetchAll);
 
+router.get("/:id", ProjectControllers.fetchSingle);
+
 // Route for create new Project
 router.post(
   "/",

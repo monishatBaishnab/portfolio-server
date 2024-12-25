@@ -28,7 +28,7 @@ app.use((0, cookie_parser_1.default)());
 app.use(express_1.default.json());
 app.use((0, cors_1.default)({
     credentials: true,
-    origin: ["*"],
+    origin: ["http://localhost:5173"],
 }));
 // Define a GET route for the root URL
 app.get("/", (0, handleAsyncErrors_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {

@@ -5,7 +5,7 @@ const projectSchema = new Schema<TProject>(
   {
     title: { type: String, required: true },
     description: { type: String, required: true },
-    overview: { type: String, required: true },
+    overview: { type: String, default:null },
     image: { type: String, required: true },
     skills: [{ type: mongoose.Schema.Types.ObjectId, ref: "Skill", required: true }],
     links: {

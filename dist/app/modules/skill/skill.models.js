@@ -6,5 +6,5 @@ const SkillSchema = new mongoose_1.Schema({
     name: { type: String, required: true },
     tagline: { type: String, required: true },
     image: { type: String, required: true },
-});
+}, { timestamps: true });
 exports.Skill = (0, mongoose_1.model)("Skill", SkillSchema);

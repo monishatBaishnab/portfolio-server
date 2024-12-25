@@ -3,8 +3,7 @@ import { z } from "zod";
 const create = z.object({
   title: z.string({ required_error: "Project title is required." }),
   description: z.string({ required_error: "Project description is required." }),
-  overview: z.string({ required_error: "Project overview is required." }),
-  image: z.string({ required_error: "Project image URL is required." }),
+  overview: z.string({ required_error: "Project overview is required." }).optional(),
   skills: z
     .array(z.string({ required_error: "Each skill ID must be a string." }))
     .nonempty({ message: "At least one skill is required." }),
