@@ -16,11 +16,29 @@ const app_1 = __importDefault(require("./app"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const config_1 = require("./app/config/config");
 let server;
-const bootstrap = () => {
-    server = app_1.default.listen(3000, () => __awaiter(void 0, void 0, void 0, function* () {
+const bootstrap = () => __awaiter(void 0, void 0, void 0, function* () {
+    try {
         yield mongoose_1.default.connect(config_1.config.db_uri);
-        console.log("Database connected successfully.");
-        console.log("Server running on port: 3000");
-    }));
-};
+        server = app_1.default.listen(3000, () => {
+            console.log("Database connected successfully.");
+            console.log("Server running on port: 3000");
+        });
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
 bootstrap();
+process.on('unhandledRejection', (err) => {
+    console.log(`😈 unahandledRejection is detected , shutting down ...`, err);
+    if (server) {
+        server.close(() => {
+            process.exit(1);
+        });
+    }
+    process.exit(1);
+});
+process.on('uncaughtException', () => {
+    console.log(`😈 uncaughtException is detected , shutting down ...`);
+    process.exit(1);
+});
