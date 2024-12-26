@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(
   cors({
     credentials: true,
-    origin: ["http://localhost:5173", "https://monishat-portfolio.web.app"],
+    origin: ["http://localhost:5173", "https://monishat-portfolio.web.app", "https://portfolio-dashboard-e7f84.web.app"],
   })
 );
 

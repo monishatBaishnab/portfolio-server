@@ -28,7 +28,7 @@ app.use((0, cookie_parser_1.default)());
 app.use(express_1.default.json());
 app.use((0, cors_1.default)({
     credentials: true,
-    origin: ["http://localhost:5173", "https://monishat-portfolio.web.app"],
+    origin: ["http://localhost:5173", "https://monishat-portfolio.web.app", "https://portfolio-dashboard-e7f84.web.app"],
 }));
 // Define a GET route for the root URL
 app.get("/", (0, handleAsyncErrors_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {

@@ -30,7 +30,7 @@ const bootstrap = () => __awaiter(void 0, void 0, void 0, function* () {
 });
 bootstrap();
 process.on('unhandledRejection', (err) => {
-    console.log(`😈 unahandledRejection is detected , shutting down ...`, err);
+    console.log(`😈 Unhandled Rejection is detected , shutting down ...`, err);
     if (server) {
         server.close(() => {
             process.exit(1);
@@ -39,6 +39,6 @@ process.on('unhandledRejection', (err) => {
     process.exit(1);
 });
 process.on('uncaughtException', () => {
-    console.log(`😈 uncaughtException is detected , shutting down ...`);
+    console.log(`😈 Uncaught Exception is detected , shutting down ...`);
     process.exit(1);
 });

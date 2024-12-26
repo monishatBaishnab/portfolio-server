@@ -22,20 +22,19 @@ const auth_model_1 = require("./auth.model");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 // Service for login
 const login = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const userInfo = yield auth_model_1.User.findOne({ email: payload.email }).select("id password email profile");
+    const userInfo = yield auth_model_1.User.findOne({ email: payload.email }).select("_id password name email");
     // If user not found then throw error
     if (!userInfo) {
         throw new HttpError_1.default(http_status_1.default.NOT_FOUND, "User Not Found.");
     }
+    console.log(payload.password, userInfo.password);
     // Match password
     const isMatchPass = yield bcrypt_1.default.compare(payload.password, userInfo.password);
     if (!isMatchPass) {
         throw new HttpError_1.default(http_status_1.default.UNAUTHORIZED, "Password not matched.");
     }
-    // Save userdata on database
-    const createdUser = yield auth_model_1.User.create(userInfo);
     // Create token data
-    const tokenData = (0, jwt_1.sanitizeTokenData)(createdUser);
+    const tokenData = (0, jwt_1.sanitizeTokenData)(userInfo);
     // Create token
     const token = (0, jwt_1.generateToken)(tokenData, config_1.config.jwt_access_token);
     return { token };

@@ -10,13 +10,13 @@ import bcrypt from "bcrypt";
 
 // Service for login
 const login = async (payload: { email: string; password: string }) => {
-  const userInfo = await User.findOne({ email: payload.email }).select("id password email profile");
+  const userInfo = await User.findOne({ email: payload.email }).select("_id password name email");
 
   // If user not found then throw error
   if (!userInfo) {
     throw new HttpError(httpStatus.NOT_FOUND, "User Not Found.");
   }
-
+console.log(payload.password, userInfo.password);
   // Match password
   const isMatchPass = await bcrypt.compare(payload.password, userInfo.password);
 
@@ -24,11 +24,8 @@ const login = async (payload: { email: string; password: string }) => {
     throw new HttpError(httpStatus.UNAUTHORIZED, "Password not matched.");
   }
 
-  // Save userdata on database
-  const createdUser = await User.create(userInfo);
-
   // Create token data
-  const tokenData = sanitizeTokenData(createdUser);
+  const tokenData = sanitizeTokenData(userInfo);
 
   // Create token
   const token = generateToken(tokenData, config.jwt_access_token as string);
